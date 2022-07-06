@@ -36,8 +36,8 @@ cur = conn.cursor()
 
 @st.experimental_memo #memoize the function's returned data to avoid constant data reload
 def load_db():
-	df1 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\train.csv')
-	df2 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\test.csv')
+	df1 = pd.read_csv('train.csv')
+	df2 = pd.read_csv('test.csv')
 	df = df1.append(df2)
 	df['Month'] = [i.month for i in pd.to_datetime(df['date'], dayfirst = True)]
 	df['Year'] = [i.year for i in pd.to_datetime(df['date'], dayfirst = True)]
