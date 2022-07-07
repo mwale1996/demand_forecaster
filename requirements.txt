@@ -5,3 +5,4 @@ pycaret==3.0.0rc2
 streamlit==1.10.0
 streamlit-aggrid==0.2.3.post2
 pip==22.1.2
+python-cffi==1.5.2
