@@ -1,6 +1,6 @@
 From Dataset to Machine Learning App - Demand Planning with Machine Learning
 
-This project illustrates an end-to-end process culminating in a machine learning app deployed on Streamlit cloud.
+This project illustrates an end-to-end process culminating in a machine learning app deployed on Heroku (https://demand-forecasting-eda-to-app.herokuapp.com/).
 
 The project uses Kaggle's Store-Item Demand Forecasting Challenge Dataset (more info at https://www.kaggle.com/c/demand-forecasting-kernels-only).
 
@@ -14,4 +14,4 @@ The second phase of the project is the deployment of the model in a Streamlit ap
 
 The project is intended to show the process of progressing from EDA to machine learning app.
 
-Major kudos to the developers of the pandas, pycaret, streamlit, streamlit-aggrid, statsmodels, plotly and numpy libraries
+Major kudos to the developers of the pandas, pycaret, streamlit, streamlit-aggrid, statsmodels, plotly and numpy libraries.
