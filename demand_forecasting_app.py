@@ -14,30 +14,10 @@ st.title('Demand Forecasting')
 st.subheader('Using Exponential Smoothing Model to predict demand')
 
 
-@st.experimental_singleton #cache connection-creator function - to prevent having to reload the model for every rerun or widget interaction
-def create_connection(db_file):
-    """ create a database connection to a SQLite database """
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
-
-
-if __name__ == '__main__':
-    create_connection(r"demand_forecast_db.db")
-
-conn = sqlite3.connect(r"demand_forecast_db.db")
-cur = conn.cursor()
-
 @st.experimental_memo #memoize the function's returned data to avoid constant data reload
 def load_db():
-	df1 = pd.read_csv('train.csv')
-	df2 = pd.read_csv('test.csv')
+	df1 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\forecasting app\\train.csv')
+	df2 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\forecasting app\\test.csv')
 	df = df1.append(df2)
 	df['Month'] = [i.month for i in pd.to_datetime(df['date'], dayfirst = True)]
 	df['Year'] = [i.year for i in pd.to_datetime(df['date'], dayfirst = True)]
@@ -45,9 +25,10 @@ def load_db():
 	df['item'] = ['item_' + str(i) for i in df['item']]
 	df['time_series'] = df[['store', 'item']].apply(lambda x: '_'.join(x), axis=1)
 	df['Date1'] = pd.to_datetime(df['date'], yearfirst = True).dt.to_period('M').dt.to_timestamp()
-	df.to_sql(name = 'OG', con = conn, index = False, if_exists = 'replace')
+	return df
 
-load_db()
+
+df = load_db()
 
 df = pd.read_sql('SELECT * FROM OG', con = conn)
 
@@ -69,7 +50,7 @@ gb.configure_side_bar()
 gridOptions = gb.build()
 
 st.write('Data Source - edits made in this dataframe will be carried into the forecasting algorithm')
-grid_return = AgGrid(df[(df['store'] == store) & (df['item'] == item) & (df['Date'] < '2018-01-01')], 
+grid_return = AgGrid(df[(df['store'] == store) & (df['item'] == item) & (df['Date'] < '2018-01-01')][['date', 'Date', 'Year', 'Month', 'id', 'time_series', 'sales']], 
 update_mode = GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,
 gridOptions = gridOptions,
 editable = True, 
