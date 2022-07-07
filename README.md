@@ -10,7 +10,7 @@ I use statsmodels's time series API to breakdown a sample Item-Store combination
 
 I then use pycaret's regression module to build a forecaster using a timeseries fold strategy (this is pre-Pycaret 3.0 which has its own time series module). Since the model returns a subpar model, I use Pycaret's time_series module to build another two models fitted to different store-item combinations. The results of the models prove that an exponential smoothing model is the best model for forecasting demand for these products. I then save the model and configuration of the model for deployment. However, instead of loading the specific model, I decided to fit an exponential smoothing model each time since the input data changes.
 
-The second phase of the project is the deployment of the model in a Streamlit app. The app layout allows the user to choose a Store and Item combination and see the unsummarized (i.e. daily, not monthly) sales data with the corresponding forecasting results using an exponential smoothing model. The user is also able to edit the unsummarized data and the forecaster will use the edited data and not the summarized data and visualize the results.
+The second phase of the project is the deployment of the model in a Streamlit app. The app layout allows the user to choose a Store and Item combination and see the unsummarized (i.e. daily, not monthly) sales data with the corresponding forecasting results using an exponential smoothing model. The user is also able to edit the unsummarized data and the forecaster will use the edited data to train the model and visualize the results.
 
 The project is intended to show the process of progressing from EDA to machine learning app.
 
