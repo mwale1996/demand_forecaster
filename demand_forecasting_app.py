@@ -61,7 +61,6 @@ df3 = pd.DataFrame(grid_return['data'])
 
 st.subheader('Forecast Plot')
 
-@st.experimental_singleton
 def load_predict():
 	s2 = TSForecastingExperiment()
 	s2.setup(df3[['Date', 'sales']][df3['Date'] < '2018-01-01'].groupby('Date')[['sales']].sum(), target = 'sales', fold = 5)
