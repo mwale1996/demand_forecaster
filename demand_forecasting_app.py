@@ -13,7 +13,6 @@ st.set_page_config(page_title = 'Demand Forecasting', layout = 'wide')
 st.title('Demand Forecasting')
 st.subheader('Using Exponential Smoothing Model to predict demand')
 
-
 @st.experimental_memo #memoize the function's returned data to avoid constant data reload
 def load_db():
 	df1 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\forecasting app\\train.csv')
@@ -29,8 +28,6 @@ def load_db():
 
 
 df = load_db()
-
-df = pd.read_sql('SELECT * FROM OG', con = conn)
 
 df['Date'] = pd.to_datetime(df['Date1']) 
 df.drop('Date1', axis = 1, inplace = True)
@@ -49,7 +46,9 @@ gb.configure_side_bar()
 
 gridOptions = gb.build()
 
-st.write('Data Source - edits made in this dataframe will be carried into the forecasting algorithm')
+st.markdown('## Data Source')
+st.markdown('### Edits made in this dataframe will be carried into the forecasting algorithm')
+
 grid_return = AgGrid(df[(df['store'] == store) & (df['item'] == item) & (df['Date'] < '2018-01-01')][['date', 'Date', 'Year', 'Month', 'id', 'time_series', 'sales']], 
 update_mode = GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,
 gridOptions = gridOptions,
@@ -81,6 +80,3 @@ fig = px.line(pd.concat((df3[['Date', 'sales']][df3['Date'] < '2018-01-01'].grou
 fig.add_vrect(x0="2017-12-01", x1="2018-12-01", fillcolor="grey", opacity=0.25, line_width=0)
 
 st.plotly_chart(fig, use_container_width = True)
-
-
-
