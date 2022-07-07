@@ -61,18 +61,18 @@ df3 = pd.DataFrame(grid_return['data'])
 
 st.subheader('Forecast Plot')
 
-s2 = TSForecastingExperiment()
-s2.setup(df3[['Date', 'sales']][df3['Date'] < '2018-01-01'].groupby('Date')[['sales']].sum(), target = 'sales', fold = 5)
-
-es = s2.create_model('exp_smooth')
-
-predictions = s2.predict_model(es, fh = 13)
-
-predictions['Date'] = pd.date_range(start = '2017-12-01', end = '2018-12-01', freq = 'MS')
-
-predictions.columns = ['Forecast', 'Date']
-
+@st.experimental_singleton(max_entries = 2)
+def load_predict():
+	s2 = TSForecastingExperiment()
+	s2.setup(df3[['Date', 'sales']][df3['Date'] < '2018-01-01'].groupby('Date')[['sales']].sum(), target = 'sales', fold = 5)
+	es = s2.create_model('exp_smooth')
+	predictions = s2.predict_model(es, fh = 13)
+	predictions['Date'] = pd.date_range(start = '2017-12-01', end = '2018-12-01', freq = 'MS')
+	predictions.columns = ['Forecast', 'Date']
+	return predictions
 # add a date column in the dataset
+
+predictions = load_predict()
 
 # line plot
 fig = px.line(pd.concat((df3[['Date', 'sales']][df3['Date'] < '2018-01-01'].groupby('Date')[['sales']].sum(), predictions.set_index('Date')), axis = 0).reset_index(), x='Date', y= ['sales', 'Forecast'], template = 'plotly_dark')
