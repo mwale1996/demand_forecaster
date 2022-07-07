@@ -31,7 +31,7 @@ df = load_db()
 
 df['Date'] = pd.to_datetime(df['Date1']) 
 df.drop('Date1', axis = 1, inplace = True)
-df = [['date', 'Date', 'Year', 'Month', 'id', 'time_series', 'sales']]
+df = [['date', 'Date', 'Year', 'Month', 'id', 'store', 'time_series', 'sales']]
 store = st.selectbox('Select Store for forecast', df['store'].unique())
 
 item = st.selectbox('Select Item for forecast', df['item'].unique())
