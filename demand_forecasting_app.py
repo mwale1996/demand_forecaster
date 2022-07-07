@@ -15,8 +15,8 @@ st.subheader('Using Exponential Smoothing Model to predict demand')
 
 @st.experimental_memo #memoize the function's returned data to avoid constant data reload
 def load_db():
-	df1 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\forecasting app\\train.csv')
-	df2 = pd.read_csv('C:\\Users\\MXW26\\Jupyter Notebooks\\forecasting app\\test.csv')
+	df1 = pd.read_csv('train.csv')
+	df2 = pd.read_csv('test.csv')
 	df = df1.append(df2)
 	df['Month'] = [i.month for i in pd.to_datetime(df['date'], dayfirst = True)]
 	df['Year'] = [i.year for i in pd.to_datetime(df['date'], dayfirst = True)]
@@ -31,7 +31,7 @@ df = load_db()
 
 df['Date'] = pd.to_datetime(df['Date1']) 
 df.drop('Date1', axis = 1, inplace = True)
-
+df = [['date', 'Date', 'Year', 'Month', 'id', 'time_series', 'sales']]
 store = st.selectbox('Select Store for forecast', df['store'].unique())
 
 item = st.selectbox('Select Item for forecast', df['item'].unique())
@@ -49,7 +49,7 @@ gridOptions = gb.build()
 st.markdown('## Data Source')
 st.markdown('### Edits made in this dataframe will be carried into the forecasting algorithm')
 
-grid_return = AgGrid(df[(df['store'] == store) & (df['item'] == item) & (df['Date'] < '2018-01-01')][['date', 'Date', 'Year', 'Month', 'id', 'time_series', 'sales']], 
+grid_return = AgGrid(df[(df['store'] == store) & (df['item'] == item) & (df['Date'] < '2018-01-01')], 
 update_mode = GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,
 gridOptions = gridOptions,
 editable = True, 
