@@ -1,6 +1,6 @@
 From Dataset to Machine Learning App - Demand Planning with Machine Learning
 
-This project illustrates an end-to-end process culminating in a machine learning app deployed on Streamlit Cloud (https://mwale1996-demand-forecaster-demand-forecasting-app-as74gy.streamlitapp.com/).
+This project illustrates an end-to-end process culminating in a machine learning app deployed on Streamlit Cloud (https://huggingface.co/spaces/mwale1996/demand-forecaster/tree/main).
 
 The project uses Kaggle's Store-Item Demand Forecasting Challenge Dataset (more info at https://www.kaggle.com/c/demand-forecasting-kernels-only).
 
